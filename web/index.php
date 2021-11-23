@@ -1,7 +1,9 @@
 <?php
 
+require('../vendor/autoload.php');
+
 //Get Heroku ClearDB connection information
-$cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+$cleardb_url = parse_url("mysql://bd851fa5020e4c:b10b6ba5@us-cdbr-east-04.cleardb.com/heroku_f98ed29c46af889?reconnect=true");
 $cleardb_server = $cleardb_url["host"];
 $cleardb_username = $cleardb_url["user"];
 $cleardb_password = $cleardb_url["pass"];
@@ -11,8 +13,6 @@ $query_builder = TRUE;
 // Connect to DB
 $conn = mysqli_connect($cleardb_server, $cleardb_username, $cleardb_password, $cleardb_db);
 
-
-require('../vendor/autoload.php');
 
 $app = new Silex\Application();
 $app['debug'] = true;
