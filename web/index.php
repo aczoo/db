@@ -2,18 +2,6 @@
 
 require('../vendor/autoload.php');
 
-//Get Heroku ClearDB connection information
-$cleardb_url = parse_url("mysql://bd851fa5020e4c:b10b6ba5@us-cdbr-east-04.cleardb.com/heroku_f98ed29c46af889?reconnect=true");
-$cleardb_server = $cleardb_url["host"];
-$cleardb_username = $cleardb_url["user"];
-$cleardb_password = $cleardb_url["pass"];
-$cleardb_db = substr($cleardb_url["path"],1);
-$active_group = 'default';
-$query_builder = TRUE;
-// Connect to DB
-$conn = mysqli_connect($cleardb_server, $cleardb_username, $cleardb_password, $cleardb_db);
-
-
 $app = new Silex\Application();
 $app['debug'] = true;
 
@@ -26,12 +14,18 @@ $app->register(new Silex\Provider\MonologServiceProvider(), array(
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/views',
 ));
+$app->register(new Silex\Provider\RoutingServiceProvider());
 
 // Our web handlers
 
 $app->get('/', function() use($app) {
   $app['monolog']->addDebug('logging output.');
-  return $app['twig']->render('index.twig');
-});
+  return $app['twig']->render('.twig');
+})->bind('home');
+
+//Doesn't work as of now, may need to switch out of Silex which is depreciated
+$app->get('/profile', function() use($app) {
+  return $app['twig']->render('profile.twig');
+})->bind('profile');
 
 $app->run();
