@@ -1,11 +1,18 @@
 <?php
 require_once "config.php";
-
+$sql = "SELECT * FROM login_credentials";
+$result = mysqli_query($conn,$sql);
+// Print the data from the table row by row
+while($row = mysqli_fetch_array($result)) {
+echo $row['username'];
+echo " " . $row['password'];
+echo "<br>";
+}
 // Define variables and initialize with empty values
 $username = $password = $confirm_password = $name = $birthday = $gender = "";
 $activity_level = $calorie_intake = 0;
 $username_err = $password_err = $confirm_password_err = $name_err = $birthday_err = $gender_err = "";
- 
+echo("hi");
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
@@ -96,9 +103,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $sql1 = "INSERT INTO login_credentials(username, password) VALUES (?, ?)";
         $sql2 = "INSERT INTO users (username, name, activity_level, gender, birthday, calorie_intake, password) VALUES (?, ?, ?, ?, ?, ?,?)";
          
-        if($stmt = mysqli_prepare($conn, $sql1) && $stmt2 = mysqli_prepare($conn, $sql2)){
+        if($stmt1 = mysqli_prepare($conn, $sql1) && $stmt2 = mysqli_prepare($conn, $sql2)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
+            mysqli_stmt_bind_param($stmt1, "ss", $param_username, $param_password);
             mysqli_stmt_bind_param($stmt2, "ssissis", $param_username, $param_name, $param_activity_level, $param_gender, $param_birthday, $param_calorie_intake, $param_password);
             // Set parameters
             $param_username = $username;
@@ -108,12 +115,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_gender = $gender;
             $param_birthday = $birthday;
             $param_calorie_intake = $calorie_intake;
-            console.log($sql1);
 
             // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt) && mysqli_stmt_execute($stmt2)){
+            if(mysqli_stmt_execute($stmt1) && mysqli_stmt_execute($stmt2)){
                 // Redirect to login page
-                console.log("hey this worked");
+                header("location: login.php");
+
+
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
             }
@@ -124,7 +132,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     
     // Close connection
-   //mysqli_close($conn);
+   mysqli_close($conn);
 }
 ?> 
 
