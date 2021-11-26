@@ -1,13 +1,5 @@
 <?php
 require_once "config.php";
-$sql = "SELECT * FROM login_credentials";
-$result = mysqli_query($conn,$sql);
-// Print the data from the table row by row
-while($row = mysqli_fetch_array($result)) {
-echo $row['username'];
-echo " " . $row['password'];
-echo "<br>";
-}
 // Define variables and initialize with empty values
 $username = $password = $confirm_password = $name = $birthday = $gender = "";
 $activity_level = $calorie_intake = 0;
@@ -82,7 +74,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else{
         $birthday = trim($_POST["birthday"]);
         if(strlen($birthday)!=10 || $birthday[4] !='-' || $birthday[7] != '-'){
-            $birthday_err = "Please follow the format YY.";
+            $birthday_err = "Please follow the format YYYY-MM-DD.";
         }
         }
     // Validate gender
