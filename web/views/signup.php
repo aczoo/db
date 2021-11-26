@@ -78,7 +78,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $birthday_err = "Please follow the format YY.";
         }
         }
-    }
     // Validate gender
     if(empty(trim($_POST["gender"]))){
         $gender_err = "Please enter a gender.";     
@@ -100,7 +99,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if($stmt = mysqli_prepare($conn, $sql1) && $stmt2 = mysqli_prepare($conn, $sql2)){
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
-            mysqli_stmt_bind_param($stmt2, "ss", $param_username, $param_name, $param_activity_level, $param_gender, $param_birthday, $param_calorie_intake, $param_password);
+            mysqli_stmt_bind_param($stmt2, "ssissis", $param_username, $param_name, $param_activity_level, $param_gender, $param_birthday, $param_calorie_intake, $param_password);
             // Set parameters
             $param_username = $username;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
@@ -109,11 +108,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_gender = $gender;
             $param_birthday = $birthday;
             $param_calorie_intake = $calorie_intake;
+            console.log($sql1);
 
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt) && mysqli_stmt_execute($stmt2)){
                 // Redirect to login page
-                header("location: login.php");
+                console.log("hey this worked");
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
             }
@@ -124,8 +124,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     
     // Close connection
-    mysqli_close($conn);
-
+   //mysqli_close($conn);
+}
 ?> 
 
 <!DOCTYPE html>
