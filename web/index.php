@@ -20,7 +20,7 @@ $app->register(new Silex\Provider\RoutingServiceProvider());
 
 $app->get('/', function() use($app) {
   $app['monolog']->addDebug('logging output.');
-  return $app['twig']->render('.twig');
+  return $app['twig']->render('index.twig');
 })->bind('home');
 
 //Doesn't work as of now, may need to switch out of Silex which is depreciated
