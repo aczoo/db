@@ -119,7 +119,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             }
 
             // Close statement
-            mysqli_stmt_close($stmt);
+            mysqli_stmt_close($stmt1);
+            mysqli_stmt_close($stmt2);
+
         }
     }
     
