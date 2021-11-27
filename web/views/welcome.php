@@ -29,6 +29,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
           <li class="navbar-right">
             <a href="profile.php"><span class="glyphicon glyphicon-user"></span> Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b></a>
           </li>
+          <li class="navbar-right">
+            <a href="logout.php">Sign Out</a>
+          </li>
         </ul>
       </div>
     </nav>
@@ -39,8 +42,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
      <p>Quantity: <input type="text" name="Servings" /></p>
      <p><input type="submit" /></p>
     </form>
-    <p>
-        <a href="logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a>
-    </p>
+
 </body>
 </html>

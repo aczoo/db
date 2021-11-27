@@ -1,15 +1,3 @@
-<?php
-// Initialize the session
-session_start();
- 
-// Check if the user is logged in, if not then redirect him to login page
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: login.php");
-    exit;
-
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,6 +15,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
       <div class="container">
         <ul class="nav navbar-nav navbar-right">
           <li class="navbar-right">
+            <a href="logout.php">Sign Out</a>
+          </li>
+          <li class="navbar-right">
             <a href="welcome.php"> Home</a>
           </li>
         </ul>
@@ -34,8 +25,47 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     </nav>
 
     <h1> Profile Page</h1>
+    <?php
+    // Initialize the session
+    session_start();
+     
+    // Check if the user is logged in, if not then redirect him to login page
+    if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+        header("location: login.php");
+        exit;
+    }
+
+    // Include config file
+    require_once "config.php";
+
+    $sql = "SELECT name, activity_level, gender, birthday, calorie_intake FROM user WHERE username = ?";
+
+    if($stmt = mysqli_prepare($conn, $sql)){
+        // Bind variables to the prepared statement as parameters
+        mysqli_stmt_bind_param($stmt, "s", $param_username);
+
+        // Set parameters
+        $param_username = $_SESSION["username"];
+        if(mysqli_stmt_execute($stmt)){
+            // Store result
+            mysqli_stmt_store_result($stmt);
+            mysqli_stmt_bind_result($stmt, $name, $activity_level, $gender, $birthday, $calorie_intake);
+            if(mysqli_stmt_fetch($stmt)){
+                echo $name;
+                echo "<br>";
+                echo $activity_level;
+                echo "<br>";
+                echo $gender;
+                echo "<br>";
+                echo $birthday;
+                echo "<br>";
+                echo $calorie_intake;
+            }
+        }
+    }
+    mysqli_close($conn);
+    ?>
     <p>
-        <a href="logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a>
     </p>
 </body>
 </html>
