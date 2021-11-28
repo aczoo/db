@@ -2,9 +2,8 @@
 require_once "config.php";
 // Define variables and initialize with empty values
 $username = $password = $confirm_password = $name = $birthday = $gender = "";
-$activity_level = $calorie_intake = 0;
+$activity_level = 0;
 $username_err = $password_err = $confirm_password_err = $name_err = $birthday_err = $gender_err = "";
-echo("hi");
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
@@ -93,12 +92,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         
         // Prepare an insert statement
         $sql1 = "INSERT INTO login_credentials(username, password) VALUES (?, ?)";
-        $sql2 = "INSERT INTO user (username, name, activity_level, gender, birthday, calorie_intake, password) VALUES (?, ?, ?, ?, ?, ?,?)";
+        $sql2 = "INSERT INTO user (username, name, activity_level, gender, birthday, password) VALUES (?, ?, ?, ?, ?, ?)";
          
-        if($stmt1 = mysqli_prepare($conn, $sql1) && $stmt2 = mysqli_prepare($conn, $sql2)){
+        if(($stmt1 = mysqli_prepare($conn, $sql1)) && ($stmt2 = mysqli_prepare($conn, $sql2))){
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt1, "ss", $param_username, $param_password);
-            mysqli_stmt_bind_param($stmt2, "ssissis", $param_username, $param_name, $param_activity_level, $param_gender, $param_birthday, $param_calorie_intake, $param_password);
+            mysqli_stmt_bind_param($stmt2, "ssisss", $param_username, $param_name, $param_activity_level, $param_gender, $param_birthday, $param_password);
             // Set parameters
             $param_username = $username;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
@@ -106,13 +105,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_activity_level = $activity_level;
             $param_gender = $gender;
             $param_birthday = $birthday;
-            $param_calorie_intake = $calorie_intake;
 
             // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt1) && mysqli_stmt_execute($stmt2)){
+            if((mysqli_stmt_execute($stmt1)) && (mysqli_stmt_execute($stmt2))){
                 // Redirect to login page
                 header("location: login.php");
-
 
             } else{
                 echo "Oops! Something went wrong. Please try again later.";

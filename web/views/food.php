@@ -27,10 +27,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
       <div class="container">
         <ul class="nav navbar-nav navbar-right">
           <li class="navbar-right">
-            <a href="profile.php"><span class="glyphicon glyphicon-user"></span> Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b></a>
+            <a href="logout.php">Sign Out</a>
           </li>
           <li class="navbar-right">
-            <a href="logout.php">Sign Out</a>
+            <a href="profile.php"><span class="glyphicon glyphicon-user"></span> Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b></a>
           </li>
           <li class="navbar-right">
             <a href="welcome.php"> Home</a>
