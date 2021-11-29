@@ -7,6 +7,84 @@
         header("location: login.php");
         exit;
     }
+    // Include config file
+    require_once "config.php";
+    // Define variables and initialize with empty values
+    $sql1 = "SELECT name, activity_level, gender, birthday FROM user WHERE username = ?";
+
+    if($stmt = mysqli_prepare($conn, $sql1)){
+        // Bind variables to the prepared statement as parameters
+        mysqli_stmt_bind_param($stmt, "s", $param_username);
+
+        // Set parameters
+        $param_username = $_SESSION["username"];
+        if(mysqli_stmt_execute($stmt)){
+            // Store result
+            mysqli_stmt_store_result($stmt);
+            mysqli_stmt_bind_result($stmt, $name, $activity_level, $gender, $birthday);
+            mysqli_stmt_fetch($stmt);
+        }
+    }
+    $birthday_dt = new DateTime($birthday);
+    $now = new DateTime('now');
+    $age = $birthday_dt ->diff($now)->y;
+    $sql2 = "SELECT recommended_calories FROM health_guidelines WHERE age = ? and gender = ? and activity_level = ?";
+    if($stmt = mysqli_prepare($conn, $sql2)){
+        mysqli_stmt_bind_param($stmt, "isi", $age, $gender, $activity_level);
+        if(mysqli_stmt_execute($stmt)){
+            // Store result
+            mysqli_stmt_store_result($stmt);
+            mysqli_stmt_bind_result($stmt, $recommended_calories);
+            mysqli_stmt_fetch($stmt);
+
+        }
+    }
+    $name_err = $birthday_err = $gender_err = "";
+    // Processing form data when form is submitted
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        // Validate name
+        if(empty(trim($_POST["name"]))){
+            $name_err = "Please enter a name.";     
+        }else{
+            $name_update = trim($_POST["name"]);
+        }
+
+        // Validate birthday
+        if(empty(trim($_POST["birthday"]))){
+            $birthday_err = "Please enter a birthday.";     
+        } else{
+            $birthday_update = trim($_POST["birthday"]);
+            if(strlen($birthday_update)!=10 || $birthday_update[4] !='-' || $birthday_update[7] != '-'){
+                $birthday_err = "Please follow the format YYYY-MM-DD.";
+            }
+        }
+        if(!empty($_POST["activity_level"])){
+            $activity_level = $_POST["activity_level"];
+        }     
+
+        // Check input errors before inserting in database
+        if(empty($name_err)&& empty($birthday_err)&& empty($gender_err)){
+            // Prepare an insert statement
+            $sql = "UPDATE user SET name = ?, activity_level = ?, gender = ?, birthday = ? WHERE username = ?";
+            if($stmt = mysqli_prepare($conn, $sql)){
+                // Bind variables to the prepared statement as parameters
+                mysqli_stmt_bind_param($stmt, "sisss", $name_update, $activity_level, $gender, $birthday_update, $_SESSION["username"]);
+                // Attempt to execute the prepared statement
+                if(mysqli_stmt_execute($stmt)){
+                    // Refresh
+                    header("Refresh:0");
+
+                } else{
+                    echo "Oops! Something went wrong. Please try again later.";
+                }
+
+                // Close statement
+                mysqli_stmt_close($stmt);
+
+            }
+        }
+    }
+    mysqli_close($conn);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,52 +125,42 @@
     </nav>
 
     <h1> Profile Page</h1>
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">   
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" name="name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name;?>">
+                <span class="invalid-feedback"><?php echo $name_err; ?></span>
+            </div>    
+            <div class="form-group">
+                <label>Birthday (YYYY-MM-DD)</label>
+                <input type="text" name="birthday" class="form-control <?php echo (!empty($birthday_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $birthday; ?>">
+                <span class="invalid-feedback"><?php echo $birthday_err; ?></span>
+            </div>    
+            <div class="form-group">
+                <label>Sex</label>
+                <select type="text" name="gender" class="form-control" value = "<?php echo $gender; ?>">
+                <option value="M">M</option>
+                <option value="F">F</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Activity Level</label>
+                <select type="text" name="activity_level" class="form-control" value = "<?php echo $activity_level; ?>">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Recommended Calorie Intake </label>
+                <input type="text" name="recommended_calories" class="form-control" value="<?php echo $recommended_calories; ?>" readonly>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Update">
+            </div>
+        </form>
     <?php
-    // Include config file
-    require_once "config.php";
-
-    $sql1 = "SELECT name, activity_level, gender, birthday FROM user WHERE username = ?";
-
-    if($stmt = mysqli_prepare($conn, $sql1)){
-        // Bind variables to the prepared statement as parameters
-        mysqli_stmt_bind_param($stmt, "s", $param_username);
-
-        // Set parameters
-        $param_username = $_SESSION["username"];
-        if(mysqli_stmt_execute($stmt)){
-            // Store result
-            mysqli_stmt_store_result($stmt);
-            mysqli_stmt_bind_result($stmt, $name, $activity_level, $gender, $birthday);
-            if(mysqli_stmt_fetch($stmt)){
-                echo $name;
-                echo "<br>";
-                echo $activity_level;
-                echo "<br>";
-                echo $gender;
-                echo "<br>";
-                echo $birthday;
-                echo "<br>";
-
-            }
-        }
-    }
-    $birthday_dt = new DateTime($birthday);
-    $now = new DateTime('now');
-    $age = $birthday_dt ->diff($now)->y;
-    $sql2 = "SELECT recommended_calories FROM health_guidelines WHERE age = ? and gender = ? and activity_level = ?";
-    if($stmt = mysqli_prepare($conn, $sql2)){
-        mysqli_stmt_bind_param($stmt, "isi", $age, $gender, $activity_level);
-        if(mysqli_stmt_execute($stmt)){
-            // Store result
-            mysqli_stmt_store_result($stmt);
-            mysqli_stmt_bind_result($stmt, $recommended_calories);
-            if(mysqli_stmt_fetch($stmt)){
-                echo $recommended_calories;
-                echo "<br>";
-            }
-        }
-    }
-    mysqli_close($conn);
+    
     ?>
     <p>
     </p>
