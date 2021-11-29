@@ -35,6 +35,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
           <li class="navbar-right">
             <a href="food.php">Food Tracker</a>
           </li>
+          <li class="navbar-right">
+            <a href="welcome.php"> Home</a>
+          </li>
         </ul>
       </div>
     </nav>
