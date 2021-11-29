@@ -45,9 +45,9 @@
     // Include config file
     require_once "config.php";
 
-    $sql = "SELECT name, activity_level, gender, birthday FROM user WHERE username = ?";
+    $sql1 = "SELECT name, activity_level, gender, birthday FROM user WHERE username = ?";
 
-    if($stmt = mysqli_prepare($conn, $sql)){
+    if($stmt = mysqli_prepare($conn, $sql1)){
         // Bind variables to the prepared statement as parameters
         mysqli_stmt_bind_param($stmt, "s", $param_username);
 
@@ -65,6 +65,24 @@
                 echo $gender;
                 echo "<br>";
                 echo $birthday;
+                echo "<br>";
+
+            }
+        }
+    }
+    $birthday_dt = new DateTime($birthday);
+    $now = new DateTime('now');
+    $age = $birthday_dt ->diff($now)->y;
+    $sql2 = "SELECT recommended_calories FROM health_guidelines WHERE age = ? and gender = ? and activity_level = ?";
+    if($stmt = mysqli_prepare($conn, $sql2)){
+        mysqli_stmt_bind_param($stmt, "isi", $age, $gender, $activity_level);
+        if(mysqli_stmt_execute($stmt)){
+            // Store result
+            mysqli_stmt_store_result($stmt);
+            mysqli_stmt_bind_result($stmt, $recommended_calories);
+            if(mysqli_stmt_fetch($stmt)){
+                echo $recommended_calories;
+                echo "<br>";
             }
         }
     }
