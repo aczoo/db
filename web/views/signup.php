@@ -92,12 +92,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         
         // Prepare an insert statement
         $sql1 = "INSERT INTO login_credentials(username, password) VALUES (?, ?)";
-        $sql2 = "INSERT INTO user (username, name, activity_level, gender, birthday, password) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql2 = "INSERT INTO user (username, name, activity_level, gender, birthday) VALUES (?, ?, ?, ?, ?)";
          
         if(($stmt1 = mysqli_prepare($conn, $sql1)) && ($stmt2 = mysqli_prepare($conn, $sql2))){
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt1, "ss", $param_username, $param_password);
-            mysqli_stmt_bind_param($stmt2, "ssisss", $param_username, $param_name, $param_activity_level, $param_gender, $param_birthday, $param_password);
+            mysqli_stmt_bind_param($stmt2, "ssiss", $param_username, $param_name, $param_activity_level, $param_gender, $param_birthday);
             // Set parameters
             $param_username = $username;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
@@ -107,7 +107,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_birthday = $birthday;
 
             // Attempt to execute the prepared statement
-            if((mysqli_stmt_execute($stmt1)) && (mysqli_stmt_execute($stmt2))){
+            if((mysqli_stmt_execute($stmt2)) && (mysqli_stmt_execute($stmt1))){
                 // Redirect to login page
                 header("location: login.php");
 
