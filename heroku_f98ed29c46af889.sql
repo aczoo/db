@@ -37,12 +37,12 @@ CREATE TABLE `consumes` (
 --
 
 INSERT INTO `consumes` (`username`, `entry_id`) VALUES
-('aczhu', 0),
 ('aczhu', 1),
-('bob', 2),
-('harry', 3),
+('aczhu', 2),
+('bob', 3),
 ('harry', 4),
-('sticklers', 5);
+('harry', 5),
+('sticklers', 6);
 
 -- --------------------------------------------------------
 
@@ -60,16 +60,16 @@ CREATE TABLE `does` (
 --
 
 INSERT INTO `does` (`username`, `exercise_id`) VALUES
-('aczhu', 0),
-('bob', 1),
+('aczhu', 1),
 ('bob', 2),
-('harry', 3),
-('jingles', 10),
-('samuel', 5),
+('bob', 3),
+('harry', 4),
+('jingles', 5),
+('samuel', 6),
 ('sticklers', 7),
 ('sticklers', 8),
-('togglemygoggles', 6),
-('zack', 9);
+('togglemygoggles', 9),
+('zack', 10);
 
 -- --------------------------------------------------------
 
@@ -78,7 +78,7 @@ INSERT INTO `does` (`username`, `exercise_id`) VALUES
 --
 
 CREATE TABLE `exercise` (
-  `exercise_id` int NOT NULL,
+  `exercise_id` INT NOT NULL AUTO_INCREMENT,
   `activity_type` varchar(20) NOT NULL,
   `date` date NOT NULL,
   `time_spent` int NOT NULL,
@@ -89,18 +89,18 @@ CREATE TABLE `exercise` (
 -- Dumping data for table `exercise`
 --
 
-INSERT INTO `exercise` (`exercise_id`, `activity_type`, `date`, `time_spent`, `calories`) VALUES
-(0, 'biking', '2021-10-28', 30, 500),
-(1, 'biking', '2021-10-28', 60, 1000),
-(2, 'swimming', '2021-10-28', 90, 800),
-(3, 'swimming', '2021-10-28', 90, 800),
-(4, 'running', '2021-10-28', 90, 800),
-(5, 'yoga', '2021-10-28', 60, 400),
-(6, 'yoga', '2021-10-28', 45, 300),
-(7, 'zumba', '2021-10-28', 60, 500),
-(8, 'wrestling', '2021-10-28', 70, 600),
-(9, 'wrestling', '2021-10-28', 30, 800),
-(10, 'kick boxing', '2021-10-28', 40, 600);
+INSERT INTO `exercise` (`activity_type`, `date`, `time_spent`, `calories`) VALUES
+('biking', '2021-10-28', 30, 500),
+('biking', '2021-10-28', 60, 1000),
+('swimming', '2021-10-28', 90, 800),
+('swimming', '2021-10-28', 90, 800),
+('running', '2021-10-28', 90, 800),
+('yoga', '2021-10-28', 60, 400),
+('yoga', '2021-10-28', 45, 300),
+('zumba', '2021-10-28', 60, 500),
+('wrestling', '2021-10-28', 70, 600),
+('wrestling', '2021-10-28', 30, 800),
+('kick boxing', '2021-10-28', 40, 600);
 
 -- --------------------------------------------------------
 
@@ -109,7 +109,7 @@ INSERT INTO `exercise` (`exercise_id`, `activity_type`, `date`, `time_spent`, `c
 --
 
 CREATE TABLE `food` (
-  `entry_id` int NOT NULL,
+  `entry_id` INT NOT NULL AUTO_INCREMENT,
   `food_item` varchar(20) NOT NULL,
   `date` date NOT NULL,
   `quantity` int NOT NULL,
@@ -120,13 +120,13 @@ CREATE TABLE `food` (
 -- Dumping data for table `food`
 --
 
-INSERT INTO `food` (`entry_id`, `food_item`, `date`, `quantity`, `calories`) VALUES
-(0, 'apple', '2021-10-28', 1, 95),
-(1, 'soup', '2021-10-28', 1, 225),
-(2, 'sandwich', '2021-10-28', 1, 350),
-(3, 'ham', '2021-10-28', 1, 400),
-(4, 'salad', '2021-10-28', 1, 300),
-(5, 'pears', '2021-10-28', 2, 150);
+INSERT INTO `food` (`food_item`, `date`, `quantity`, `calories`) VALUES
+('apple', '2021-10-28', 1, 95),
+('soup', '2021-10-28', 1, 225),
+('sandwich', '2021-10-28', 1, 350),
+('ham', '2021-10-28', 1, 400),
+('salad', '2021-10-28', 1, 300),
+('pears', '2021-10-28', 2, 150);
 
 -- --------------------------------------------------------
 
@@ -135,7 +135,7 @@ INSERT INTO `food` (`entry_id`, `food_item`, `date`, `quantity`, `calories`) VAL
 --
 
 CREATE TABLE `goals` (
-  `goal_id` int NOT NULL,
+  `goal_id` INT NOT NULL AUTO_INCREMENT,
   `type` varchar(10) NOT NULL,
   `details` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -144,14 +144,14 @@ CREATE TABLE `goals` (
 -- Dumping data for table `goals`
 --
 
-INSERT INTO `goals` (`goal_id`, `type`, `details`) VALUES
-(1, 'Food', 'Eat more vegetables'),
-(2, 'Exercise', 'Do a pull-up'),
-(3, 'Food', 'Eat broccoli'),
-(4, 'Food', 'Drink more water'),
-(5, 'Food', 'Eat less sweets'),
-(6, 'Food', 'Eat breakfast every day'),
-(7, 'Exercise', 'Go to the gym 3 times');
+INSERT INTO `goals` (`type`, `details`) VALUES
+('Food', 'Eat more vegetables'),
+('Exercise', 'Do a pull-up'),
+('Food', 'Eat broccoli'),
+('Food', 'Drink more water'),
+('Food', 'Eat less sweets'),
+('Food', 'Eat breakfast every day'),
+('Exercise', 'Go to the gym 3 times');
 
 -- --------------------------------------------------------
 
@@ -812,7 +812,6 @@ CREATE TABLE `user` (
   `activity_level` int NOT NULL,
   `gender` varchar(1) NOT NULL,
   `birthday` date NOT NULL,
-  `calorie_intake` int NOT NULL,
   `password` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -820,17 +819,17 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`username`, `name`, `activity_level`, `gender`, `birthday`, `calorie_intake`, `password`) VALUES
-('aczhu', 'Annie Zhu', 1, 'F', '2001-07-05', 0, '123pass'),
-('bob', 'Bob Lee', 2, 'M', '2000-09-02', 0, '123pass'),
-('erick', 'Erick Tian', 3, 'M', '2000-02-14', 0, '123pass'),
-('geetan', 'Geetanjali Gandhe', 2, 'F', '2001-04-24', 0, '123pass'),
-('harry', 'Harry harrison', 2, 'M', '1965-09-10', 0, '123pass'),
-('jingles', 'Jin Zhang', 3, 'F', '1960-03-11', 0, '123pass'),
-('samuel', 'Samuel L Jackson', 2, 'M', '1985-01-28', 0, '123pass'),
-('sticklers', 'Todd Benson', 2, 'M', '2004-11-03', 0, '123pass'),
-('togglemygoggles', 'Tong Zhu', 1, 'M', '1960-10-01', 0, '123pass'),
-('zack', 'Zachary Newton', 2, 'M', '2000-08-14', 0, '123pass');
+INSERT INTO `user` (`username`, `name`, `activity_level`, `gender`, `birthday`, `password`) VALUES
+('aczhu', 'Annie Zhu', 1, 'F', '2001-07-05', '123pass'),
+('bob', 'Bob Lee', 2, 'M', '2000-09-02', '123pass'),
+('erick', 'Erick Tian', 3, 'M', '2000-02-14', '123pass'),
+('geetan', 'Geetanjali Gandhe', 2, 'F', '2001-04-24', '123pass'),
+('harry', 'Harry harrison', 2, 'M', '1965-09-10', '123pass'),
+('jingles', 'Jin Zhang', 3, 'F', '1960-03-11', '123pass'),
+('samuel', 'Samuel L Jackson', 2, 'M', '1985-01-28', '123pass'),
+('sticklers', 'Todd Benson', 2, 'M', '2004-11-03', '123pass'),
+('togglemygoggles', 'Tong Zhu', 1, 'M', '1960-10-01', '123pass'),
+('zack', 'Zachary Newton', 2, 'M', '2000-08-14', '123pass');
 
 --
 -- Indexes for dumped tables

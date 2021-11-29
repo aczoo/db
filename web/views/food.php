@@ -40,6 +40,14 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     </nav>
 
     <h1> Food Tracker </h1>
+
+    <form action="add_food.php" method="post">
+     <p>Food Item: <input type="text" name="food"/></p>
+     <p>Quantity: <input type="text" name="quantity"/></p>
+     <p>Calories: <input type="text" name="calories"/></p>
+     <p><input class="btn btn-primary" type="submit" /></p>
+    </form>
+
     <p>
         <?php
         // Include config file
