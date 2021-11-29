@@ -52,7 +52,7 @@ CREATE TABLE `does` (
 --
 
 CREATE TABLE `exercise` (
-  `exercise_id` INT NOT NULL AUTO_INCREMENT,
+  `exercise_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `activity_type` varchar(20) NOT NULL,
   `date` date NOT NULL,
   `time_spent` int NOT NULL,
@@ -68,7 +68,7 @@ CREATE TABLE `exercise` (
 --
 
 CREATE TABLE `food` (
-  `entry_id` INT NOT NULL AUTO_INCREMENT,
+  `entry_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `food_item` varchar(20) NOT NULL,
   `date` date NOT NULL,
   `quantity` int NOT NULL,
@@ -84,7 +84,7 @@ CREATE TABLE `food` (
 --
 
 CREATE TABLE `goals` (
-  `goal_id` INT NOT NULL AUTO_INCREMENT,
+  `goal_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `type` varchar(10) NOT NULL,
   `details` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -737,8 +737,7 @@ CREATE TABLE `user` (
 -- Indexes for table `consumes`
 --
 ALTER TABLE `consumes`
-  ADD PRIMARY KEY (`username`,`entry_id`),
-  ADD KEY `entry_id` (`entry_id`);
+  ADD PRIMARY KEY (`username`,`entry_id`);
 
 --
 -- Indexes for table `does`
@@ -747,28 +746,10 @@ ALTER TABLE `does`
   ADD PRIMARY KEY (`username`,`exercise_id`);
 
 --
--- Indexes for table `exercise`
---
-ALTER TABLE `exercise`
-  ADD PRIMARY KEY (`exercise_id`);
-
---
--- Indexes for table `food`
---
-ALTER TABLE `food`
-  ADD PRIMARY KEY (`entry_id`);
-
---
--- Indexes for table `goals`
---
-ALTER TABLE `goals`
-  ADD PRIMARY KEY (`goal_id`);
-
---
 -- Indexes for table `has_goals`
 --
 ALTER TABLE `has_goals`
-  ADD PRIMARY KEY (`goal_id`);
+  ADD PRIMARY KEY (`username`,`goal_id`);
 
 --
 -- Indexes for table `health_guidelines`
