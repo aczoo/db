@@ -30,7 +30,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     box-sizing: border-box;
     width: 100%;
     height: auto;
-    padding: 3px;
     background-image: url("hooshungry-cropped2.png");
     background-repeat: no-repeat;
     background-size: 100%;
