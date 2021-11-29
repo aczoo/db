@@ -12,6 +12,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
 <!DOCTYPE html>
 <html lang="en">
+  <center>
 <head>
     <meta charset="UTF-8">
     <title>Welcome</title>
@@ -20,6 +21,20 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <style>
         body{ font: 14px sans-serif; text-align: center; }
+    </style>
+    
+
+    <!-- CSS -->	
+    <style type="text/css">
+    body {
+    box-sizing: border-box;
+    width: 100%;
+    height: auto;
+    padding: 3px;
+    background-image: url("hooshungry-cropped2.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    }
     </style>
 </head>
 <body>
@@ -36,18 +51,17 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <a href="food.php">Food Tracker</a>
           </li>
           <li class="navbar-right">
-            <a href="exercise.php">Exercise Tracker</a>
-          </li>
-          <li class="navbar-right">
-            <a href="goals.php">Goals</a>
-          </li>
-          <li class="navbar-right">
             <a href="welcome.php"> Home</a>
           </li>
         </ul>
       </div>
     </nav>
+    <h1> Hoo's Hungry?</h1>
 
-    <h1> Welcome to our site.</h1>
+    <!-- <img src="hooshungry-cropped2.png" alt="hooshungry"
+    width="100%"
+    height="100%"/> -->
+    
 </body>
+  </center>
 </html>
