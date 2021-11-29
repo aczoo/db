@@ -11,7 +11,7 @@ require_once "config.php";
 // Define variables and initialize with empty values
 $username = $password = $confirm_password = $name = $birthday = $gender = "";
 $activity_level = 1;
-$username_err = $password_err = $confirm_password_err = $name_err = $birthday_err = $gender_err = "";
+$username_err = $password_err = $confirm_password_err = $name_err = $birthday_err = "";
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
@@ -86,14 +86,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     // Validate gender
     if(empty(trim($_POST["gender"]))){
-        $gender_err = "Please enter a gender.";
+        $gender = "M";
     }else{
         $gender = trim($_POST["gender"]);
 
     }
 
     // Check input errors before inserting in database
-    if(empty($username_err) && empty($password_err) && empty($confirm_password_err)&& empty($name_err)&& empty($birthday_err)&& empty($gender_err)){
+    if(empty($username_err) && empty($password_err) && empty($confirm_password_err)&& empty($name_err)&& empty($birthday_err)){
 
         // Prepare an insert statement
         $sql1 = "INSERT INTO login_credentials(username, password) VALUES (?, ?)";
@@ -190,11 +190,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             </div>
             <div class="form-group">
                 <label>Sex</label>
-                <select type="text" name="activity_level" class="form-control <?php echo (!empty($gender_err)) ? 'is-invalid' : ''; ?>">
+                <select type="text" name="gender" class="form-control">
                 <option value="M">M</option>
                 <option value="F">F</option>
                 </select>
-                <span class="invalid-feedback"><?php echo $gender_err; ?></span>
             </div>   
             <div class="form-group">
                 <label>Activity Level</label>
