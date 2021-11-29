@@ -725,7 +725,6 @@ CREATE TABLE `user` (
   `activity_level` int NOT NULL,
   `gender` varchar(1) NOT NULL,
   `birthday` date NOT NULL,
-  `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 
