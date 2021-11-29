@@ -117,7 +117,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Attempt to execute the prepared statement
             if((mysqli_stmt_execute($stmt2)) && (mysqli_stmt_execute($stmt1))){
                 // Redirect to login page
-                header("location: login.php");
+                $revokequery = "GRANT SELECT, UPDATE, INSERT ON user TO $username";
+                if($stmt3 = mysqli_prepare($conn, $revokequery)){
+                    if(mysqli_stmt_execute($stmt3)){
+                        echo "Success";
+                        header("location: login.php");
+                    }
+                    else{
+                        echo "Revoke failed...";
+                    }
+                    mysqli_stmt_close($stmt3);
+
+                }
+                else{
+                    echo "AAAAAAAA";
+                }
+                // header("location: login.php");
 
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
