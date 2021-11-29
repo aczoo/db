@@ -184,7 +184,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <span class="invalid-feedback"><?php echo $name_err; ?></span>
             </div>
             <div class="form-group">
-                <label>Birthday (YYYY-MM-DD)</label>
+                <label>Birthday</label>
                 <input type="date" name="birthday" class="form-control <?php echo (!empty($birthday_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $birthday; ?>" required>
                 <span class="invalid-feedback"><?php echo $birthday_err; ?></span>
             </div>
