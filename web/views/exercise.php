@@ -51,7 +51,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     <h1> Exercise Tracker </h1>
 
     <form action="add_exercise.php" method="post">
-     <p>Actvity Type: <input type="text" name="activity_type" required/></p>
+     <p>Activity Type: <input type="text" name="activity_type" required/></p>
      <p>Time Spent (minutes): <input type="number" name="time_spent" required/></p>
      <p>Calories Burnt: <input type="number" name="calories" required/></p>
      <p><input class="btn btn-primary" type="submit" value="Add Exercise"/></p>
