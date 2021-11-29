@@ -56,7 +56,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         // Include config file
         require_once "config.php";
 
-        $sql = "SELECT food_item, quantity, calories, date FROM consumes NATURAL JOIN food WHERE username = ?";
+        $sql = "SELECT entry_id, food_item, quantity, calories, date FROM consumes NATURAL JOIN food WHERE username = ?";
 
         if($stmt = mysqli_prepare($conn, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -69,25 +69,23 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
                 // print table
                 $output = "<table class='table mx-5'>";
+                $output .= '<tr>';
+                $output .= '<td><strong> Food </strong></td>';
+                $output .= '<td><strong> Quantity  </strong></td>';
+                $output .= '<td><strong> Calories  </strong></td>';
+                $output .= '<td><strong> Date  </strong></td>';
+                $output .= '</tr>';
                 foreach($data as $key => $var) {
-                    if($key===0) {
-                        $output .= '<tr>';
-                        foreach($var as $col => $val) {
-                            $output .= "<td>" . $col . '</td>';
-                        }
-                        $output .= '</tr>';
-                        foreach($var as $col => $val) {
-                            $output .= '<td>' . $val . '</td>';
-                        }
-                        $output .= '</tr>';
-                    }
-                    else {
-                        $output .= '<tr>';
-                        foreach($var as $col => $val) {
-                            $output .= '<td>' . $val . '</td>';
-                        }
-                        $output .= '</tr>';
-                    }
+                    $output .= '<tr>';
+                    $output .= '<td>' . $var['food_item'] . '</td>';
+                    $output .= '<td>' . $var['quantity'] . '</td>';
+                    $output .= '<td>' . $var['calories'] . '</td>';
+                    $output .= '<td>' . $var['date'] . '</td>';
+                    $output .= '<td><form action="delete_food.php" method="post">';
+                    $output .= '<input type="hidden" name="entry_id" value="'. $var['entry_id'] .'">';
+                    $output .= '<input type="submit" class="btn btn-danger" value="Delete">';
+                    $output .= '</form></td>';
+                    $output .= '</tr>';
                 }
                 $output .= '</table>';
                 echo $output;
