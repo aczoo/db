@@ -52,8 +52,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
     <form action="add_food.php" method="post">
      <p>Food Item: <input type="text" name="food" required/></p>
-     <p>Quantity: <input type="number" name="quantity" required/></p>
-     <p>Calories: <input type="number" name="calories" required/></p>
+     <p>Quantity: <input type="number" name="quantity" min="1" required/></p>
+     <p>Calories: <input type="number" name="calories" min="0" required/></p>
      <p><input class="btn btn-primary" type="submit" value="Add Food"/></p>
     </form>
     <br>
