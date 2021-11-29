@@ -33,6 +33,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <a href="profile.php"><span class="glyphicon glyphicon-user"></span> Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b></a>
           </li>
           <li class="navbar-right">
+            <a href="food.php">Food Tracker</a>
+          </li>
+          <li class="navbar-right">
             <a href="welcome.php"> Home</a>
           </li>
         </ul>
@@ -43,9 +46,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
     <form action="add_food.php" method="post">
      <p>Food Item: <input type="text" name="food"/></p>
-     <p>Quantity: <input type="text" name="quantity"/></p>
-     <p>Calories: <input type="text" name="calories"/></p>
-     <p><input class="btn btn-primary" type="submit" /></p>
+     <p>Quantity: <input type="number" name="quantity"/></p>
+     <p>Calories: <input type="number" name="calories"/></p>
+     <p><input class="btn btn-primary" type="submit"/></p>
     </form>
 
     <p>
