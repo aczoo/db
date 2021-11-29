@@ -131,17 +131,17 @@
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">
                 <label>Name</label>
-                <input type="text" name="name" class="form-control" style="width:20%;" <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name;?>" required>
+                <input type="text" name="name" class="form-control" style="width:20%; text-align:center; margin-left:auto; margin-right:auto;" <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name;?>" required>
                 <span class="invalid-feedback"><?php echo $name_err; ?></span>
             </div>
             <div class="form-group">
                 <label>Birthday (YYYY-MM-DD)</label>
-                <input type="date" name="birthday" class="form-control" style="width:20%;" <?php echo (!empty($birthday_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $birthday; ?>" required>
+                <input type="date" name="birthday" class="form-control" style="width:20%; text-align:center; margin-left:auto; margin-right:auto;" <?php echo (!empty($birthday_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $birthday; ?>" required>
                 <span class="invalid-feedback"><?php echo $birthday_err; ?></span>
             </div>
             <div class="form-group">
                 <label>Sex</label>
-                <select type="text" name="gender" class="form-control" style="width:20%;">
+                <select type="text" name="gender" class="form-control" style="width:20%; text-align:center; margin-left:auto; margin-right:auto;">
                 <?php
                     $values = array("M", "F");
                     foreach ($values as $value) {
@@ -157,7 +157,7 @@
             </div>
             <div class="form-group">
                 <label>Activity Level</label>
-                <select type="text" name="activity_level" class="form-control" style="width:20%;">
+                <select type="text" name="activity_level" class="form-control" style="width:20%; text-align:center; margin-left:auto; margin-right:auto;">
                 <?php
                     $values = array("1", "2", "3");
                     foreach ($values as $value) {
@@ -173,7 +173,7 @@
             </div>
             <div class="form-group">
                 <label>Recommended Calorie Intake </label>
-                <input type="text" name="recommended_calories" class="form-control" style="width:20%;" value="<?php echo $recommended_calories; ?>" readonly>
+                <input type="text" name="recommended_calories" class="form-control" style="width:20%; text-align:center; margin-left:auto; margin-right:auto;" value="<?php echo $recommended_calories; ?>" readonly>
             </div>
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Update">

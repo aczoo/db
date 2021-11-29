@@ -60,7 +60,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
     <div class="form-group">
         <label>Order By</label>
-        <select type="text" name="order_by" class="form-control" style="width:20%;">
+        <select type="text" name="order_by" class="form-control" style="width:20%; text-align:center; margin-left:auto; margin-right:auto;">
         <option value="quantity">quantity</option>
         <option value="calories">calories</option>
         <option value="date">date</option>
