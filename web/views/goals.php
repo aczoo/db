@@ -68,8 +68,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         // Include config file
         require_once "config.php";
 
-        $sql = "SELECT goal_id, type, details, status FROM has_goals NATURAL JOIN goals WHERE username = ?";
-
+        $sql = "SELECT goal_id, type, details FROM has_goals NATURAL JOIN goals WHERE username = ?";
         if($stmt = mysqli_prepare($conn, $sql)){
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "s", $param_username);
@@ -84,13 +83,11 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                 $output .= '<tr>';
                 $output .= '<td><strong> Type </strong></td>';
                 $output .= '<td><strong> Details  </strong></td>';
-                $output .= '<td><strong> Status  </strong></td>';
                 $output .= '</tr>';
                 foreach($data as $key => $var) {
                     $output .= '<tr>';
                     $output .= '<td>' . $var['type'] . '</td>';
                     $output .= '<td>' . $var['details'] . '</td>';
-                    $output .= '<td>' . $var['status'] . '</td>';
                     $output .= '<td><form action="delete_goal.php" method="post">';
                     $output .= '<input type="hidden" name="goal_id" value="'. $var['goal_id'] .'">';
                     $output .= '<input type="submit" class="btn btn-danger" value="Delete">';
