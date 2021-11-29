@@ -89,10 +89,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $gender_err = "Please enter a gender.";
     }else{
         $gender = trim($_POST["gender"]);
-        if($gender!='F'&& $gender!='M'){
-            $gender_err = "Please follow the format M or F.";
 
-        }
     }
 
     // Check input errors before inserting in database
@@ -192,8 +189,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <span class="invalid-feedback"><?php echo $birthday_err; ?></span>
             </div>
             <div class="form-group">
-                <label>Gender (M or F)</label>
-                <input type="text" name="gender" class="form-control <?php echo (!empty($gender_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $gender; ?>" required>
+                <label>Sex</label>
+                <select type="text" name="activity_level" class="form-control <?php echo (!empty($gender_err)) ? 'is-invalid' : ''; ?>">
+                <option value="M">M</option>
+                <option value="F">F</option>
+                </select>
                 <span class="invalid-feedback"><?php echo $gender_err; ?></span>
             </div>   
             <div class="form-group">
