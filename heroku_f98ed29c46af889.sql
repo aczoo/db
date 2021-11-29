@@ -32,17 +32,6 @@ CREATE TABLE `consumes` (
   `entry_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
---
--- Dumping data for table `consumes`
---
-
-INSERT INTO `consumes` (`username`, `entry_id`) VALUES
-('aczhu', 1),
-('aczhu', 2),
-('bob', 3),
-('harry', 4),
-('harry', 5),
-('sticklers', 6);
 
 -- --------------------------------------------------------
 
@@ -55,21 +44,6 @@ CREATE TABLE `does` (
   `exercise_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
---
--- Dumping data for table `does`
---
-
-INSERT INTO `does` (`username`, `exercise_id`) VALUES
-('aczhu', 1),
-('bob', 2),
-('bob', 3),
-('harry', 4),
-('jingles', 5),
-('samuel', 6),
-('sticklers', 7),
-('sticklers', 8),
-('togglemygoggles', 9),
-('zack', 10);
 
 -- --------------------------------------------------------
 
@@ -85,22 +59,7 @@ CREATE TABLE `exercise` (
   `calories` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
---
--- Dumping data for table `exercise`
---
 
-INSERT INTO `exercise` (`activity_type`, `date`, `time_spent`, `calories`) VALUES
-('biking', '2021-10-28', 30, 500),
-('biking', '2021-10-28', 60, 1000),
-('swimming', '2021-10-28', 90, 800),
-('swimming', '2021-10-28', 90, 800),
-('running', '2021-10-28', 90, 800),
-('yoga', '2021-10-28', 60, 400),
-('yoga', '2021-10-28', 45, 300),
-('zumba', '2021-10-28', 60, 500),
-('wrestling', '2021-10-28', 70, 600),
-('wrestling', '2021-10-28', 30, 800),
-('kick boxing', '2021-10-28', 40, 600);
 
 -- --------------------------------------------------------
 
@@ -116,17 +75,7 @@ CREATE TABLE `food` (
   `calories` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
---
--- Dumping data for table `food`
---
 
-INSERT INTO `food` (`food_item`, `date`, `quantity`, `calories`) VALUES
-('apple', '2021-10-28', 1, 95),
-('soup', '2021-10-28', 1, 225),
-('sandwich', '2021-10-28', 1, 350),
-('ham', '2021-10-28', 1, 400),
-('salad', '2021-10-28', 1, 300),
-('pears', '2021-10-28', 2, 150);
 
 -- --------------------------------------------------------
 
@@ -140,18 +89,7 @@ CREATE TABLE `goals` (
   `details` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
---
--- Dumping data for table `goals`
---
 
-INSERT INTO `goals` (`type`, `details`) VALUES
-('Food', 'Eat more vegetables'),
-('Exercise', 'Do a pull-up'),
-('Food', 'Eat broccoli'),
-('Food', 'Drink more water'),
-('Food', 'Eat less sweets'),
-('Food', 'Eat breakfast every day'),
-('Exercise', 'Go to the gym 3 times');
 
 -- --------------------------------------------------------
 
@@ -164,18 +102,7 @@ CREATE TABLE `has_goals` (
   `username` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
---
--- Dumping data for table `has_goals`
---
 
-INSERT INTO `has_goals` (`goal_id`, `username`) VALUES
-(1, 'aczhu'),
-(2, 'bob'),
-(3, 'erick'),
-(4, 'geetan'),
-(5, 'harry'),
-(6, 'jingles'),
-(7, 'samuel');
 
 -- --------------------------------------------------------
 
@@ -781,24 +708,10 @@ INSERT INTO `health_guidelines` (`age`, `gender`, `activity_level`, `recommended
 
 CREATE TABLE `login_credentials` (
   `username` varchar(20) NOT NULL,
-  `password` varchar(20) NOT NULL
+  `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
---
--- Dumping data for table `login_credentials`
---
 
-INSERT INTO `login_credentials` (`username`, `password`) VALUES
-('aczhu', '123pass'),
-('bob', '123pass'),
-('erick', '123pass'),
-('geetan', '123pass'),
-('harry', '123pass'),
-('jingles', '123pass'),
-('samuel', '123pass'),
-('sticklers', '123pass'),
-('togglemygoggles', '123pass'),
-('zack', '123pass');
 
 -- --------------------------------------------------------
 
@@ -812,24 +725,9 @@ CREATE TABLE `user` (
   `activity_level` int NOT NULL,
   `gender` varchar(1) NOT NULL,
   `birthday` date NOT NULL,
-  `password` varchar(20) NOT NULL
+  `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`username`, `name`, `activity_level`, `gender`, `birthday`, `password`) VALUES
-('aczhu', 'Annie Zhu', 1, 'F', '2001-07-05', '123pass'),
-('bob', 'Bob Lee', 2, 'M', '2000-09-02', '123pass'),
-('erick', 'Erick Tian', 3, 'M', '2000-02-14', '123pass'),
-('geetan', 'Geetanjali Gandhe', 2, 'F', '2001-04-24', '123pass'),
-('harry', 'Harry harrison', 2, 'M', '1965-09-10', '123pass'),
-('jingles', 'Jin Zhang', 3, 'F', '1960-03-11', '123pass'),
-('samuel', 'Samuel L Jackson', 2, 'M', '1985-01-28', '123pass'),
-('sticklers', 'Todd Benson', 2, 'M', '2004-11-03', '123pass'),
-('togglemygoggles', 'Tong Zhu', 1, 'M', '1960-10-01', '123pass'),
-('zack', 'Zachary Newton', 2, 'M', '2000-08-14', '123pass');
 
 --
 -- Indexes for dumped tables
