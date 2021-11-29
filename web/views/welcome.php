@@ -40,10 +40,5 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     </nav>
 
     <h1> Welcome to our site.</h1>
-    <form action="action.php" method="post">
-     <p>Food Item: <input type="text" name="Apples" /></p>
-     <p>Quantity: <input type="text" name="Servings" /></p>
-     <p><input type="submit" /></p>
-    </form>
 </body>
 </html>
