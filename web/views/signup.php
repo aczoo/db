@@ -2,7 +2,7 @@
 require_once "config.php";
 // Define variables and initialize with empty values
 $username = $password = $confirm_password = $name = $birthday = $gender = "";
-$activity_level = 0;
+$activity_level = 1;
 $username_err = $password_err = $confirm_password_err = $name_err = $birthday_err = $gender_err = "";
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -175,7 +175,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             </div>   
             <div class="form-group">
                 <label>Activity Level</label>
-                <input type="text" name="activity_level" class="form-control">
+                <select type="text" name="activity_level" class="form-control">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                </select>
             </div>
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Submit">
