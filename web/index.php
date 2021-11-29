@@ -18,14 +18,8 @@ $app->register(new Silex\Provider\RoutingServiceProvider());
 
 // Our web handlers
 
-$app->get('/', function() use($app) {
-  $app['monolog']->addDebug('logging output.');
-  return $app['twig']->render('index.twig');
-})->bind('home');
-
-//Doesn't work as of now, may need to switch out of Silex which is depreciated
-$app->get('/profile', function() use($app) {
-  return $app['twig']->render('profile.twig');
-})->bind('profile');
+$app->get('/', function() use ($app) {
+    return $app->redirect('/views/welcome.php');
+});
 
 $app->run();
