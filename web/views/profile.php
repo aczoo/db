@@ -44,14 +44,14 @@
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         // Validate name
         if(empty(trim($_POST["name"]))){
-            $name_err = "Please enter a name.";     
+            $name_err = "Please enter a name.";
         }else{
             $name_update = trim($_POST["name"]);
         }
 
         // Validate birthday
         if(empty(trim($_POST["birthday"]))){
-            $birthday_err = "Please enter a birthday.";     
+            $birthday_err = "Please enter a birthday.";
         } else{
             $birthday_update = trim($_POST["birthday"]);
             if(strlen($birthday_update)!=10 || $birthday_update[4] !='-' || $birthday_update[7] != '-'){
@@ -63,7 +63,7 @@
         }
         if(!empty($_POST["gender"])){
             $gender = $_POST["gender"];
-        }       
+        }
 
         // Check input errors before inserting in database
         if(empty($name_err)&& empty($birthday_err)&& empty($gender_err)){
@@ -128,17 +128,17 @@
     </nav>
 
     <h1> Profile Page</h1>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">   
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">
                 <label>Name</label>
-                <input type="text" name="name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name;?>">
+                <input type="text" name="name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name;?>" required>
                 <span class="invalid-feedback"><?php echo $name_err; ?></span>
-            </div>    
+            </div>
             <div class="form-group">
                 <label>Birthday (YYYY-MM-DD)</label>
-                <input type="text" name="birthday" class="form-control <?php echo (!empty($birthday_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $birthday; ?>">
+                <input type="date" name="birthday" class="form-control <?php echo (!empty($birthday_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $birthday; ?>" required>
                 <span class="invalid-feedback"><?php echo $birthday_err; ?></span>
-            </div>    
+            </div>
             <div class="form-group">
                 <label>Sex</label>
                 <select type="text" name="gender" class="form-control">
@@ -180,7 +180,7 @@
             </div>
         </form>
     <?php
-    
+
     ?>
     <p>
     </p>

@@ -1,7 +1,7 @@
 <?php
 // Initialize the session
 session_start();
- 
+
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
     header("location: welcome.php");
@@ -14,7 +14,7 @@ $activity_level = 1;
 $username_err = $password_err = $confirm_password_err = $name_err = $birthday_err = $gender_err = "";
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
- 
+
     // Validate username
     if(empty(trim($_POST["username"]))){
         $username_err = "Please enter a username.";
@@ -23,19 +23,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else{
         // Prepare a select statement
         $sql = "SELECT name FROM user WHERE username = ?";
-        
+
         if($stmt = mysqli_prepare($conn, $sql)){
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "s", $param_username);
-            
+
             // Set parameters
             $param_username = trim($_POST["username"]);
-            
+
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 /* store result */
                 mysqli_stmt_store_result($stmt);
-                
+
                 if(mysqli_stmt_num_rows($stmt) == 1){
                     $username_err = "This username is already taken.";
                 } else{
@@ -49,19 +49,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             mysqli_stmt_close($stmt);
         }
     }
-    
+
     // Validate password
     if(empty(trim($_POST["password"]))){
-        $password_err = "Please enter a password.";     
+        $password_err = "Please enter a password.";
     } elseif(strlen(trim($_POST["password"])) < 6){
         $password_err = "Password must have atleast 6 characters.";
     } else{
         $password = trim($_POST["password"]);
     }
-    
+
     // Validate confirm password
     if(empty(trim($_POST["confirm_password"]))){
-        $confirm_password_err = "Please confirm password.";     
+        $confirm_password_err = "Please confirm password.";
     } else{
         $confirm_password = trim($_POST["confirm_password"]);
         if(empty($password_err) && ($password != $confirm_password)){
@@ -70,14 +70,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     // Validate name
     if(empty(trim($_POST["name"]))){
-        $name_err = "Please enter a name.";     
+        $name_err = "Please enter a name.";
     }else{
         $name = trim($_POST["name"]);
     }
 
     // Validate birthday
     if(empty(trim($_POST["birthday"]))){
-        $birthday_err = "Please enter a birthday.";     
+        $birthday_err = "Please enter a birthday.";
     } else{
         $birthday = trim($_POST["birthday"]);
         if(strlen($birthday)!=10 || $birthday[4] !='-' || $birthday[7] != '-'){
@@ -86,22 +86,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     // Validate gender
     if(empty(trim($_POST["gender"]))){
-        $gender_err = "Please enter a gender.";     
+        $gender_err = "Please enter a gender.";
     }else{
         $gender = trim($_POST["gender"]);
         if($gender!='F'&& $gender!='M'){
-            $gender_err = "Please follow the format M or F.";     
+            $gender_err = "Please follow the format M or F.";
 
         }
     }
-    
+
     // Check input errors before inserting in database
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err)&& empty($name_err)&& empty($birthday_err)&& empty($gender_err)){
-        
+
         // Prepare an insert statement
         $sql1 = "INSERT INTO login_credentials(username, password) VALUES (?, ?)";
         $sql2 = "INSERT INTO user (username, name, activity_level, gender, birthday) VALUES (?, ?, ?, ?, ?)";
-         
+
         if(($stmt1 = mysqli_prepare($conn, $sql1)) && ($stmt2 = mysqli_prepare($conn, $sql2))){
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt1, "ss", $param_username, $param_password);
@@ -129,11 +129,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         }
     }
-    
+
     // Close connection
    mysqli_close($conn);
 }
-?> 
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -153,32 +153,32 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">
                 <label>Username</label>
-                <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
+                <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>" required>
                 <span class="invalid-feedback"><?php echo $username_err; ?></span>
-            </div>    
+            </div>
             <div class="form-group">
                 <label>Password</label>
-                <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
+                <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>" required>
                 <span class="invalid-feedback"><?php echo $password_err; ?></span>
             </div>
             <div class="form-group">
                 <label>Confirm Password</label>
-                <input type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
+                <input type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>" required>
                 <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
             </div>
             <div class="form-group">
                 <label>Name</label>
-                <input type="text" name="name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name; ?>">
+                <input type="text" name="name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name; ?>" required>
                 <span class="invalid-feedback"><?php echo $name_err; ?></span>
-            </div>    
+            </div>
             <div class="form-group">
                 <label>Birthday (YYYY-MM-DD)</label>
-                <input type="text" name="birthday" class="form-control <?php echo (!empty($birthday_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $birthday; ?>">
+                <input type="date" name="birthday" class="form-control <?php echo (!empty($birthday_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $birthday; ?>" required>
                 <span class="invalid-feedback"><?php echo $birthday_err; ?></span>
-            </div>    
+            </div>
             <div class="form-group">
                 <label>Gender (M or F)</label>
-                <input type="text" name="gender" class="form-control <?php echo (!empty($gender_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $gender; ?>">
+                <input type="text" name="gender" class="form-control <?php echo (!empty($gender_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $gender; ?>" required>
                 <span class="invalid-feedback"><?php echo $gender_err; ?></span>
             </div>   
             <div class="form-group">
@@ -195,6 +195,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             </div>
             <p>Already have an account? <a href="login.php">Login here</a>.</p>
         </form>
-    </div>    
+    </div>
 </body>
 </html>
