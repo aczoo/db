@@ -60,7 +60,10 @@
         }
         if(!empty($_POST["activity_level"])){
             $activity_level = $_POST["activity_level"];
-        }     
+        }
+        if(!empty($_POST["gender"])){
+            $gender = $_POST["gender"];
+        }       
 
         // Check input errors before inserting in database
         if(empty($name_err)&& empty($birthday_err)&& empty($gender_err)){
@@ -138,17 +141,34 @@
             </div>    
             <div class="form-group">
                 <label>Sex</label>
-                <select type="text" name="gender" class="form-control" value = "<?php echo $gender; ?>">
-                <option value="M">M</option>
-                <option value="F">F</option>
+                <select type="text" name="gender" class="form-control">
+                <?php
+                    $values = array("M", "F");
+                    foreach ($values as $value) {
+                        if ($value == $gender) {
+                        echo('<option selected="selected" value='.$value.'>'.$value.'</option>');
+                        }
+                        else{
+                        echo('<option value='.$value.'>'.$value.'</option>');
+                        }
+                }
+                ?>
                 </select>
             </div>
             <div class="form-group">
                 <label>Activity Level</label>
-                <select type="text" name="activity_level" class="form-control" value = "<?php echo $activity_level; ?>">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
+                <select type="text" name="activity_level" class="form-control">
+                <?php
+                    $values = array("1", "2", "3");
+                    foreach ($values as $value) {
+                        if ($value == $activity_level) {
+                        echo('<option selected="selected" value='.$value.'>'.$value.'</option>');
+                        }
+                        else{
+                        echo('<option value='.$value.'>'.$value.'</option>');
+                        }
+                }
+                ?>
                 </select>
             </div>
             <div class="form-group">
