@@ -56,23 +56,45 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
      <p>Calories: <input type="number" name="calories" required/></p>
      <p><input class="btn btn-primary" type="submit" value="Add Food"/></p>
     </form>
-
+    <br>
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+    <div class="form-group">
+        <label>Order By</label>
+        <select type="text" name="order_by" class="form-control">
+        <option value="quantity">quantity</option>
+        <option value="calories">calories</option>
+        <option value="date">date</option>
+        </select>
+    </div> 
+     <p><input class="btn btn-primary" type="submit" value="Submit"/></p>
+    </form>
     <p>
         <?php
         // Include config file
         require_once "config.php";
 
         $sql = "SELECT entry_id, food_item, quantity, calories, date FROM consumes NATURAL JOIN food WHERE username = ?";
-
+        if($_SERVER["REQUEST_METHOD"] == "POST"){
+            $order_by = $_POST["order_by"];
+            if ($order_by == "quantity"){
+                $sql = "SELECT entry_id, food_item, quantity, calories, date FROM consumes NATURAL JOIN food WHERE username = ? ORDER BY quantity DESC";
+            }
+            if ($order_by == "calories"){
+                $sql = "SELECT entry_id, food_item, quantity, calories, date FROM consumes NATURAL JOIN food WHERE username = ? ORDER BY calories DESC";
+            }
+            if ($order_by == "date"){
+                $sql = "SELECT entry_id, food_item, quantity, calories, date FROM consumes NATURAL JOIN food WHERE username = ? ORDER BY date";
+            }
+           
+        }
         if($stmt = mysqli_prepare($conn, $sql)){
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_username);
+
+        mysqli_stmt_bind_param($stmt, "s", $param_username);
 
             // Set parameters
             $param_username = $_SESSION["username"];
-            if(mysqli_stmt_execute($stmt)){
+        if(mysqli_stmt_execute($stmt)){
                 $data = mysqli_stmt_get_result($stmt);
-
                 // print table
                 $output = "<table class='table mx-5'>";
                 $output .= '<tr>';
@@ -95,8 +117,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                 }
                 $output .= '</table>';
                 echo $output;
-            }
         }
+    }
         mysqli_close($conn);
         ?>
     </p>
