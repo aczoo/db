@@ -34,6 +34,9 @@
             <a href="food.php">Food Tracker</a>
           </li>
           <li class="navbar-right">
+            <a href="exercise.php">Exercise Tracker</a>
+          </li>
+          <li class="navbar-right">
             <a href="welcome.php"> Home</a>
           </li>
         </ul>
