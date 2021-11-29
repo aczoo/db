@@ -48,10 +48,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     <h1> Food Tracker </h1>
 
     <form action="add_food.php" method="post">
-     <p>Food Item: <input type="text" name="food"/></p>
-     <p>Quantity: <input type="number" name="quantity"/></p>
-     <p>Calories: <input type="number" name="calories"/></p>
-     <p><input class="btn btn-primary" type="submit"/></p>
+     <p>Food Item: <input type="text" name="food" required/></p>
+     <p>Quantity: <input type="number" name="quantity" required/></p>
+     <p>Calories: <input type="number" name="calories" required/></p>
+     <p><input class="btn btn-primary" type="submit" required/></p>
     </form>
 
     <p>

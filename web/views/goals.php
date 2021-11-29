@@ -45,21 +45,30 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
       </div>
     </nav>
 
-    <h1> Exercise Tracker </h1>
-
-    <form action="add_exercise.php" method="post">
-     <p>Actvity Type: <input type="text" name="activity_type" required/></p>
-     <p>Time Spent (minutes): <input type="number" name="time_spent" required/></p>
-     <p>Calories Burnt: <input type="number" name="calories" required/></p>
-     <p><input class="btn btn-primary" type="submit"/></p>
-    </form>
+    <h1> Goals </h1>
+    <div class="mx-5">
+        <form action="add_goal.php" method="post">
+         <div class="form-group">
+             <label> Type: </label>
+             <select type="text" name="type">
+                 <option value="Food">Food</option>
+                 <option value="Exercise">Exercise</option>
+             </select>
+         </div>
+         <label>Details:</label> <br>
+         <textarea type="text" name="details" required></textarea>
+         <div class="form-group">
+             <input class="btn btn-primary" type="submit" value="Add Goal"/>
+         </div>
+        </form>
+    </div>
 
     <p>
         <?php
         // Include config file
         require_once "config.php";
 
-        $sql = "SELECT exercise_id, activity_type, date, time_spent, calories FROM does NATURAL JOIN exercise WHERE username = ?";
+        $sql = "SELECT goal_id, type, details, status FROM has_goals NATURAL JOIN goals WHERE username = ?";
 
         if($stmt = mysqli_prepare($conn, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -73,19 +82,17 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                 // print table
                 $output = "<table class='table mx-5'>";
                 $output .= '<tr>';
-                $output .= '<td><strong> Activity Type </strong></td>';
-                $output .= '<td><strong> Time Spent </strong></td>';
-                $output .= '<td><strong> Calories </strong></td>';
-                $output .= '<td><strong> Date </strong></td>';
+                $output .= '<td><strong> Type </strong></td>';
+                $output .= '<td><strong> Details  </strong></td>';
+                $output .= '<td><strong> Status  </strong></td>';
                 $output .= '</tr>';
                 foreach($data as $key => $var) {
                     $output .= '<tr>';
-                    $output .= '<td>' . $var['activity_type'] . '</td>';
-                    $output .= '<td>' . $var['time_spent'] . '</td>';
-                    $output .= '<td>' . $var['calories'] . '</td>';
-                    $output .= '<td>' . $var['date'] . '</td>';
-                    $output .= '<td><form action="delete_exercise.php" method="post">';
-                    $output .= '<input type="hidden" name="exercise_id" value="'. $var['exercise_id'] .'">';
+                    $output .= '<td>' . $var['type'] . '</td>';
+                    $output .= '<td>' . $var['details'] . '</td>';
+                    $output .= '<td>' . $var['status'] . '</td>';
+                    $output .= '<td><form action="delete_goal.php" method="post">';
+                    $output .= '<input type="hidden" name="goal_id" value="'. $var['goal_id'] .'">';
                     $output .= '<input type="submit" class="btn btn-danger" value="Delete">';
                     $output .= '</form></td>';
                     $output .= '</tr>';
