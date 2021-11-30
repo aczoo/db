@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1-1.el7.remi
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Nov 01, 2021 at 04:20 AM
--- Server version: 8.0.26-commercial
--- PHP Version: 7.3.30
+-- Host: us-cdbr-east-04.cleardb.com
+-- Generation Time: Nov 30, 2021 at 01:07 AM
+-- Server version: 5.6.50-log
+-- PHP Version: 7.3.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,9 +29,26 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `consumes` (
   `username` varchar(20) NOT NULL,
-  `entry_id` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `entry_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `consumes`
+--
+
+INSERT INTO `consumes` (`username`, `entry_id`) VALUES
+('vi', 55),
+('vi', 65),
+('aczhu2', 75),
+('aczhu2', 85),
+('Geetanjali', 95),
+('aczhu2', 105),
+('sindhu', 115),
+('sindhu', 135),
+('erick', 145),
+('aczhu', 155),
+('aczhu', 165),
+('aczhu', 175);
 
 -- --------------------------------------------------------
 
@@ -41,9 +58,21 @@ CREATE TABLE `consumes` (
 
 CREATE TABLE `does` (
   `username` varchar(20) NOT NULL,
-  `exercise_id` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `exercise_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `does`
+--
+
+INSERT INTO `does` (`username`, `exercise_id`) VALUES
+('aczhu', 45),
+('aczhu', 55),
+('Geetanjali', 25),
+('sindhu', 35),
+('vi', 0),
+('vi', 5),
+('vi', 15);
 
 -- --------------------------------------------------------
 
@@ -52,14 +81,23 @@ CREATE TABLE `does` (
 --
 
 CREATE TABLE `exercise` (
-  `exercise_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `exercise_id` int(11) NOT NULL,
   `activity_type` varchar(20) NOT NULL,
   `date` date NOT NULL,
-  `time_spent` int NOT NULL,
-  `calories` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `time_spent` int(11) NOT NULL,
+  `calories` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `exercise`
+--
 
+INSERT INTO `exercise` (`exercise_id`, `activity_type`, `date`, `time_spent`, `calories`) VALUES
+(15, 'running', '2021-11-29', 60, 100),
+(25, 'running', '2021-11-29', 20000, 300000),
+(35, 'walking', '2021-11-29', -20, -20),
+(45, 'running', '2021-11-30', 12, 12),
+(55, 'running', '2021-11-30', 12, 10);
 
 -- --------------------------------------------------------
 
@@ -68,14 +106,34 @@ CREATE TABLE `exercise` (
 --
 
 CREATE TABLE `food` (
-  `entry_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `entry_id` int(11) NOT NULL,
   `food_item` varchar(20) NOT NULL,
   `date` date NOT NULL,
-  `quantity` int NOT NULL,
-  `calories` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `quantity` int(11) NOT NULL,
+  `calories` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `food`
+--
 
+INSERT INTO `food` (`entry_id`, `food_item`, `date`, `quantity`, `calories`) VALUES
+(5, 'apple', '2021-11-29', 1, 70),
+(15, 'apple', '2021-11-29', 1, 70),
+(25, 'apple', '2021-11-29', 1, 70),
+(35, 'apple', '2021-11-29', 1, 70),
+(55, 'pasta', '2021-11-29', 1, 200),
+(65, 'apple', '2021-11-29', 1, 70),
+(75, 'Pizza', '2021-11-29', 1, 2),
+(85, 'Apples', '2021-11-29', 2, 1),
+(95, 'bread', '2021-11-29', 400, 3000),
+(105, 'hei', '2021-11-29', 1, 1),
+(115, 'cupcake', '2021-11-29', -10, -10),
+(135, 'food', '2021-11-29', 1, 1),
+(145, 'yam', '2021-11-29', 1, 0),
+(155, 'running', '2021-11-30', 20, 10),
+(165, 'Pizza', '2021-11-30', 3, 4),
+(175, 'Pizza', '2021-11-30', 1, 50);
 
 -- --------------------------------------------------------
 
@@ -84,12 +142,21 @@ CREATE TABLE `food` (
 --
 
 CREATE TABLE `goals` (
-  `goal_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `goal_id` int(11) NOT NULL,
   `type` varchar(10) NOT NULL,
   `details` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `goals`
+--
 
+INSERT INTO `goals` (`goal_id`, `type`, `details`) VALUES
+(25, 'Food', 'eat more veg'),
+(35, 'Exercise', 'walk'),
+(45, 'Food', 'eat greens'),
+(65, 'Food', 'hi'),
+(75, 'Food', 'ehi');
 
 -- --------------------------------------------------------
 
@@ -98,11 +165,20 @@ CREATE TABLE `goals` (
 --
 
 CREATE TABLE `has_goals` (
-  `goal_id` int NOT NULL,
+  `goal_id` int(11) NOT NULL,
   `username` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `has_goals`
+--
 
+INSERT INTO `has_goals` (`goal_id`, `username`) VALUES
+(25, 'vi'),
+(35, 'Geetanjali'),
+(45, 'Geetanjali'),
+(65, 'aczhu'),
+(75, 'aczhu');
 
 -- --------------------------------------------------------
 
@@ -111,11 +187,11 @@ CREATE TABLE `has_goals` (
 --
 
 CREATE TABLE `health_guidelines` (
-  `age` int NOT NULL,
+  `age` int(11) NOT NULL,
   `gender` varchar(1) NOT NULL,
-  `activity_level` int NOT NULL,
-  `recommended_calories` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `activity_level` int(11) NOT NULL,
+  `recommended_calories` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `health_guidelines`
@@ -709,9 +785,39 @@ INSERT INTO `health_guidelines` (`age`, `gender`, `activity_level`, `recommended
 CREATE TABLE `login_credentials` (
   `username` varchar(20) NOT NULL,
   `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `login_credentials`
+--
 
+INSERT INTO `login_credentials` (`username`, `password`) VALUES
+('aczhu', '$2y$10$q8RaV/UPQa0eLnwrUa10ZulbuI9HQ3ef5lJ5tMX00HIdaPli.F35G'),
+('aczhu2', '$2y$10$dmTYwVQKt9wr9pKikod0K.rPXjQiCyXOWcb2KzA9sp99Yc0RVgHoi'),
+('bertham', '$2y$10$e13V/in0dIvrnRV96s4G6uSnMfuWathwJlRUxBeroeoutFXg5I75q'),
+('bobb3', '$2y$10$7fiZCN1TtvVXMzpQEjuezuwhRIDi89uxKSZEv88Y19ttnyZOQoFFW'),
+('bobb4', '$2y$10$kXXhmPQrORa6QpJLYnjR4e/kWgScseXTWlwLSf.hNnujpvvwM2MDu'),
+('bobby', '$2y$10$N0TSdwJMARfZRR4Dty7WSuzyMcbBIy.1aT6l1qr5NoskEWt6FP7Wu'),
+('bobby1', '$2y$10$TBsTX2L7S8kxW5Io53nPE.IrBZ.lHuVwugRsjOHetsiGJe0Rciy1O'),
+('d', '$2y$10$.sbyH3cJPLhH0TAD8lJX1O/ljzdPNu0vhVNqdIuAmLfgRnJikNhZy'),
+('erick', '$2y$10$4D7APdkMR9umoUMpYdKoWecuIqfr9APmzQKroWbUPNNS68pkethB6'),
+('erick10', '$2y$10$.S8im1ljOHE9XD6Yb4r0v.5budtOdc6bQKo6ArucO2wBICeMEOj.K'),
+('erick11', '$2y$10$vCGIyFLiYspGKXTSFR4JWOuk8OIJNvGr6fTKtNIQEGJayUh2Rk8pO'),
+('erick12', '$2y$10$tCwBVbTBFp7lpNYZrDbkQej7madfDsT.cPHlsglXVnILHS20SrB4O'),
+('erick2', '$2y$10$GXljMwbJlDTwFCCbdP43W.TAfJA8z58l94FyTpj6bjAYtj2uCnNP2'),
+('erick3', '$2y$10$S2E.250G0nJ3k5DT5GRt7.oUCXh3Guzrd.1dVnzdp8TXVlJw20P9a'),
+('erick4', '$2y$10$1SE49sMl4IHvmTFkF6J3me2yiSwqcel4eMrJQeE.NeX3Loq4F1YEK'),
+('erick5', '$2y$10$i56QsPQ4m3lZTw.361ibeOSbOcm3dJWFqx1cSJEMB8Tg3zKGuWVxG'),
+('erick6', '$2y$10$OLI0NdRtAdjP912cJYE.8uHpCiMBXoMAwCErjjO0/An00MXwncQgi'),
+('erick7', '$2y$10$sGwbtVJNLbXgNYZN8MwjmOS4stX6YFcEF5Lc5z9/LGvMV.N56S1Pi'),
+('erick8', '$2y$10$WlfMTzDqLMdP6IotCwZIP.nUjiyBFkf.fJvFsOtGDz/xJu/.97mFG'),
+('erick9', '$2y$10$pbv87/FMa5c0k26tHgdnKObpq5Kir6JmgR6upb12V7fU9qan9V0vu'),
+('Geetanjali', '$2y$10$CNlWPQ4GPTd5MEeCDcfCv.hgOeNlO4HA7yTp.3FPSoew7UYb3olR.'),
+('p', '$2y$10$aYk1u1Rt7LP3jqyZuYB5Hu0gVcvGVURcc0DP83kiJMgdnYu4MjviO'),
+('s', '$2y$10$opYNRIbT5ldTet9eWhVCguC1wEXnfN4K4Gg/rbz9RvCNUfSNvLN0m'),
+('sindhu', '$2y$10$S4Qzr/Qyqm.0KshyxXsJlOjOP/6U5rISj4x1s9f4clMIIrUhY1NrK'),
+('vi', '$2y$10$D0YJXRpmrt3fuzZH3Xx8k.zIW332uGXAFmAQx3sGzhihnoCiTqQ0.'),
+('vi2', '$2y$10$fWQ4HYv5I0KMOn.eteKxvegMB3F2w0FNmDiA8o7tbcNTNjBHdLV4K');
 
 -- --------------------------------------------------------
 
@@ -722,11 +828,42 @@ CREATE TABLE `login_credentials` (
 CREATE TABLE `user` (
   `username` varchar(20) NOT NULL,
   `name` varchar(20) NOT NULL,
-  `activity_level` int NOT NULL,
+  `activity_level` int(11) NOT NULL,
   `gender` varchar(1) NOT NULL,
-  `birthday` date NOT NULL,
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `birthday` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`username`, `name`, `activity_level`, `gender`, `birthday`) VALUES
+('aczhu', 'Annie Zhu', 0, 'F', '2001-07-05'),
+('aczhu2', 'Annie', 2, 'F', '1998-01-14'),
+('bertham', 'Bertham Washington', 0, 'M', '2001-07-05'),
+('bobb3', 'Annie Chen', 1, 'M', '2021-10-05'),
+('bobb4', 'Annie Chen', 1, 'M', '2021-10-05'),
+('bobby', 'bobby', 1, 'M', '2021-11-24'),
+('bobby1', 'Annie Chen', 1, 'M', '2021-10-05'),
+('d', 'sindhu', 1, '', '2001-11-23'),
+('erick', 'Erick', 0, 'M', '2001-10-04'),
+('erick10', 'Erick', 1, 'M', '2001-10-04'),
+('erick11', 'Erick', 1, 'M', '2001-10-04'),
+('erick12', 'Erick', 1, 'M', '2001-10-04'),
+('erick2', 'Erick', 1, '', '2001-10-04'),
+('erick3', 'Erick', 1, '', '2001-10-04'),
+('erick4', 'ERICKAAAAAAA', 1, '', '2001-10-04'),
+('erick5', 'ERICKAAAAAAA', 1, '', '2001-10-04'),
+('erick6', 'ERICKAAAAAAA', 1, '', '2001-10-04'),
+('erick7', 'ERICKAAAAAAA', 1, '', '2001-10-04'),
+('erick8', 'Erick', 1, 'M', '2001-10-04'),
+('erick9', 'Erick', 1, 'M', '2001-10-04'),
+('Geetanjali', 'Geetanjali', 1, 'M', '2001-04-11'),
+('p', 'sindhu', 1, '', '2001-11-23'),
+('s', 'sindhu', 1, '', '2001-11-23'),
+('sindhu', 'sindhu', 1, 'M', '2001-11-23'),
+('vi', 'Vi', 2, 'F', '2000-09-07'),
+('vi2', 'vi', 1, '', '2001-11-23');
 
 --
 -- Indexes for dumped tables
@@ -736,7 +873,8 @@ CREATE TABLE `user` (
 -- Indexes for table `consumes`
 --
 ALTER TABLE `consumes`
-  ADD PRIMARY KEY (`username`,`entry_id`);
+  ADD PRIMARY KEY (`username`,`entry_id`),
+  ADD KEY `consumes_ibfk_2` (`entry_id`);
 
 --
 -- Indexes for table `does`
@@ -745,10 +883,29 @@ ALTER TABLE `does`
   ADD PRIMARY KEY (`username`,`exercise_id`);
 
 --
+-- Indexes for table `exercise`
+--
+ALTER TABLE `exercise`
+  ADD PRIMARY KEY (`exercise_id`);
+
+--
+-- Indexes for table `food`
+--
+ALTER TABLE `food`
+  ADD PRIMARY KEY (`entry_id`);
+
+--
+-- Indexes for table `goals`
+--
+ALTER TABLE `goals`
+  ADD PRIMARY KEY (`goal_id`);
+
+--
 -- Indexes for table `has_goals`
 --
 ALTER TABLE `has_goals`
-  ADD PRIMARY KEY (`username`,`goal_id`);
+  ADD PRIMARY KEY (`username`,`goal_id`),
+  ADD KEY `has_goals_ibfk_1` (`goal_id`);
 
 --
 -- Indexes for table `health_guidelines`
@@ -767,6 +924,28 @@ ALTER TABLE `login_credentials`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`username`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `exercise`
+--
+ALTER TABLE `exercise`
+  MODIFY `exercise_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+
+--
+-- AUTO_INCREMENT for table `food`
+--
+ALTER TABLE `food`
+  MODIFY `entry_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=185;
+
+--
+-- AUTO_INCREMENT for table `goals`
+--
+ALTER TABLE `goals`
+  MODIFY `goal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- Constraints for dumped tables
@@ -797,9 +976,6 @@ ALTER TABLE `has_goals`
 ALTER TABLE `login_credentials`
   ADD CONSTRAINT `login_credentials_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE;
 COMMIT;
-
-ALTER TABLE food ADD CONSTRAINT checkfoodcal CHECK (calories>0);
-ALTER TABLE exercise ADD CONSTRAINT checkexercisecal CHECK (calories>0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
